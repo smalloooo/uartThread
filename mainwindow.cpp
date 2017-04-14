@@ -1,12 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "QDebug"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    uart.start();
+
+    uart = new uartThread();
 }
 
 MainWindow::~MainWindow()
@@ -16,10 +19,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    uart.setState(FUNC1);
+    IWT_CMD cmd;
+    cmd.cmd = "*IDN?\r\n";
+    uart->setState(SET_PARAMETER, cmd);
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    uart.setState(FUNC2);
+    IWT_CMD cmd;
+    cmd.cmd = ":ASK:SAMPLE\r\n";
+    uart->setState(SET_PARAMETER, cmd);
 }

@@ -4,16 +4,15 @@
 #include <QObject>
 #include <QMutex>
 #include <QThread>
-#include <QtSerialPort/QSerialPort>
-#include <QtSerialPort/QSerialPortInfo>
 
 #include "support.h"
 
-
-#define FUNC1 1
+#define SET_PARAMETER 1
 #define FUNC2 2
 #define FUNC3 3
 #define FUNC4 4
+
+
 
 class uartThread : public QThread
 {
@@ -22,8 +21,15 @@ public:
     explicit uartThread(QObject *parent = 0);
     ~uartThread();
 
+    bool connectComPort();
+    QString readStr();
+    void writeStr(const QString);
+
     void setAbort(bool in){m_abort = in;}
     void setState(int in){m_State = in;}
+    void setState(int in, IWT_CMD cmdIn){m_State = in, cmd = cmdIn;}
+
+    void setParameter();
 
 protected:
     void run();
@@ -34,9 +40,11 @@ public slots:
 
 private:
     int m_State;
-    bool m_abort;
+    bool m_abort, m_bIsComConnect;
     QMutex mutex;
-    QSerialPort m_ComPort;
+    QSerialPort *m_ComPort;
+    ComSettings m_ComPortSettings;
+    IWT_CMD cmd;
 };
 
 #endif // UARTTHREAD_H

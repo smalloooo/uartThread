@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "uartthread.h"
+#include "support.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,7 +25,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    uartThread uart;
+    uartThread *uart;
+
+
 };
 
 #endif // MAINWINDOW_H

@@ -19,6 +19,7 @@ class uartThread : public QThread
     Q_OBJECT
 public:
     explicit uartThread(QObject *parent = 0);
+    explicit uartThread(QObject *parent = 0, support *in);
     ~uartThread();
 
     bool connectComPort();
@@ -45,6 +46,7 @@ private:
     QSerialPort *m_ComPort;
     ComSettings m_ComPortSettings;
     IWT_CMD cmd;
+    support *pSupport;
 };
 
 #endif // UARTTHREAD_H

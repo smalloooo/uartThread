@@ -25,6 +25,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    support* pSupport;
     uartThread *uart;
 
 

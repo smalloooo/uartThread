@@ -9,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    uart = new uartThread();
+    pSupport = new support();
+    uart = new uartThread(pSupport);
 }
 
 MainWindow::~MainWindow()

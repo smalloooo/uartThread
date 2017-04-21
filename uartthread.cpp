@@ -9,6 +9,15 @@ uartThread::uartThread(QObject *parent)
     start();
 }
 
+uartThread::uartThread(QObject *parent, support *in)
+    : QThread(parent)
+{
+    pSupport = in;
+    m_abort = false;
+    m_State = 0;
+    start();
+}
+
 uartThread::~uartThread()
 {
 
